@@ -32,19 +32,38 @@ yarn typecheck && yarn lint && yarn test
 
 ## Construire l'application Android
 
-```bash
-npx eas-cli build --platform android --profile preview      # APK à installer directement
-npx eas-cli build --platform android --profile production   # .aab pour Google Play
-```
+### Sur le VPS (sans EAS)
 
-Sans EAS, sur une machine qui a le SDK Android :
+Une seule fois, pour installer le JDK, Node, yarn et le SDK Android (environ 3 Go) :
 
 ```bash
-npx expo prebuild --platform android --no-install
-cd android && ./gradlew assembleRelease     # APK dans android/app/build/outputs/apk/release/
+git clone https://github.com/aymenkssi/english-game.git && cd english-game
+./scripts/build-vps.sh setup
 ```
 
-La CI GitHub Actions (`.github/workflows/ci.yml`) refait les vérifications puis compile l'APK et le publie comme artefact.
+Puis à chaque nouvelle version :
+
+```bash
+git pull
+./scripts/build-vps.sh apk     # APK à installer sur un téléphone
+./scripts/build-vps.sh aab     # .aab à envoyer sur Google Play
+```
+
+- Les fichiers arrivent dans `~/builds/hello-english/` (`hello-english-<version>-<versionCode>.apk` / `.aab`).
+  Pour les récupérer : `scp utilisateur@vps:builds/hello-english/*.apk .`
+- La clé de signature est créée au premier build dans `~/.hello-english/` (jamais dans le dépôt).
+  **Sauvegardez ce dossier** : la même clé doit signer toutes les mises à jour.
+- Gradle a besoin d'environ 4 Go de mémoire (RAM + swap) ; `setup` prévient s'il en manque.
+- Avant chaque `.aab` envoyé à Google Play : augmenter `android.versionCode` dans `app.json`.
+
+### Avec EAS
+
+```bash
+npx eas-cli build --platform android --profile preview      # APK
+npx eas-cli build --platform android --profile production   # .aab
+```
+
+La CI GitHub Actions (`.github/workflows/ci.yml`) refait les vérifications puis compile un APK de test et le publie comme artefact.
 
 ## Organisation
 
