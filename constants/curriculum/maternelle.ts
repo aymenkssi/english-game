@@ -1,14 +1,9 @@
 /* Maternelle — éveil à la diversité linguistique (programme 2021, guide Eduscol 2023).
    Tout est oral : l'enfant écoute, montre, associe. Aucun mot écrit n'est requis.
    Format d'un mot : [image, anglais, français]. Une image commençant par # est une couleur. */
-window.LEVELS = window.LEVELS || [];
+import { V, type Level } from './types';
 
-const V = (id, title, en, icon, words) => ({ id, type: "v", title, en, icon, words });
-const Q = (id, title, en, icon, items) => ({ id, type: "q", title, en, icon, items });
-const O = (id, title, en, icon, items) => ({ id, type: "o", title, en, icon, items });
-window.UNIT = { V, Q, O };
-
-LEVELS.push(
+export const MATERNELLE: Level[] = [
   {
     id: "ps", name: "Petite section", short: "PS", cycle: 0, cefr: "Éveil", read: false, spell: false, choices: 3,
     goal: "Éveil à la diversité linguistique : écouter les sonorités de l'anglais, reconnaître quelques mots très familiers à l'oral.",
@@ -96,4 +91,4 @@ LEVELS.push(
       ]),
     ],
   }
-);
+];

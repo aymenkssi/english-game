@@ -1,13 +1,9 @@
 # Hello English! 🎈
 
-Jeu interactif pour apprendre l'anglais **de la maternelle à la 3e**, aligné sur les programmes officiels de l'Éducation nationale.
+Application Android pour apprendre l'anglais **de la maternelle à la 3e**, alignée sur les programmes officiels de l'Éducation nationale.
 
-## Jouer
-
-Aucune installation : ouvrez `index.html` dans un navigateur (ordinateur, tablette ou téléphone).
-Le jeu fonctionne aussi tel quel sur GitHub Pages ou tout hébergement de fichiers statiques.
-
-Les mots sont lus à voix haute par la synthèse vocale du navigateur (voix anglaise). Les étoiles gagnées sont enregistrées sur l'appareil.
+Même base technique que les autres applications (Waselni, AgriPedia, Halal & Mosque Finder) :
+**Expo / React Native** (SDK 57, TypeScript, expo-router). L'application fonctionne entièrement hors ligne, sans compte ni serveur.
 
 ## Contenu
 
@@ -23,21 +19,43 @@ Les mots sont lus à voix haute par la synthèse vocale du navigateur (voix angl
 | 4e | Niveau A2+, 6 axes | Sport et société ; voyages et explorations ; villes ; inventer, créer ; present perfect ; l'Irlande |
 | 3e | Niveau B1, 6 axes | L'autre et les migrations ; le travail ; médias ; engagement ; passif, conditionnel ; les États-Unis |
 
-## Mini-jeux
+Mini-jeux : **Découvrir**, **Écoute**, **Le bon mot** (dès le CP), **Memory**, **Épelle** (dès le CE1), **Quiz** et **Phrases**.
+Les mots sont lus par la synthèse vocale du téléphone (voix anglaise) ; les étoiles gagnées sont enregistrées sur l'appareil.
 
-- **Découvrir** : toucher les cartes pour entendre les mots
-- **Écoute** : entendre un mot et trouver la bonne image
-- **Le bon mot** : associer l'image au mot écrit (à partir du CP)
-- **Memory** : retrouver les paires
-- **Épelle** : remettre les lettres dans l'ordre (à partir du CE1)
-- **Quiz** : grammaire et culture, avec une explication après chaque réponse
-- **Phrases** : remettre les mots dans l'ordre
+## Développement
 
-## Ajouter du contenu
+```bash
+yarn install
+yarn start            # Expo (touche a : Android, w : navigateur)
+yarn typecheck && yarn lint && yarn test
+```
 
-Tout le contenu se trouve dans `js/data-maternelle.js`, `js/data-elementaire.js` et `js/data-college.js` :
+## Construire l'application Android
 
-```js
+```bash
+npx eas-cli build --platform android --profile preview      # APK à installer directement
+npx eas-cli build --platform android --profile production   # .aab pour Google Play
+```
+
+Sans EAS, sur une machine qui a le SDK Android :
+
+```bash
+npx expo prebuild --platform android --no-install
+cd android && ./gradlew assembleRelease     # APK dans android/app/build/outputs/apk/release/
+```
+
+La CI GitHub Actions (`.github/workflows/ci.yml`) refait les vérifications puis compile l'APK et le publie comme artefact.
+
+## Organisation
+
+- `constants/curriculum/` : tout le contenu pédagogique, un fichier par étape (`maternelle.ts`, `elementaire.ts`, `college.ts`)
+- `lib/` : logique sans interface (jeux, scores, progression, voix, sons), testée dans `__tests__/`
+- `components/games/` : les mini-jeux ; `app/` : les écrans (expo-router)
+- `scripts/` : génération des icônes et des sons
+
+Ajouter du contenu :
+
+```ts
 V("id", "Titre", "English title", "🎨", [["🐶", "dog", "chien"], …])   // vocabulaire : [image, anglais, français]
 Q("id", "Titre", "English title", "❓", [["She ___ a cat.", "has", ["have", "is"], "Explication"], …])
 O("id", "Titre", "English title", "🧩", [["I like cats.", "J'aime les chats."], …])
