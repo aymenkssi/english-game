@@ -6,6 +6,7 @@ import { Explore } from '../../../../components/games/Explore';
 import { Memory } from '../../../../components/games/Memory';
 import { Order } from '../../../../components/games/Order';
 import { Quiz } from '../../../../components/games/Quiz';
+import { Speak } from '../../../../components/games/Speak';
 import { Spell } from '../../../../components/games/Spell';
 import { Button, goBack, IconButton, ProgressBar, Screen, Stars } from '../../../../components/ui';
 import { findLevel, findUnit, type Level, type Unit } from '../../../../constants/curriculum';
@@ -51,7 +52,8 @@ function Play({ level, unit, gameId }: { level: Level; unit: Unit; gameId: GameI
   };
 
   let board: React.ReactNode = null;
-  if (unit.type === 'q') board = <Quiz key={attempt} unit={unit} {...common} />;
+  if (gameId === 'speak') board = <Speak key={attempt} unit={unit} {...common} />;
+  else if (unit.type === 'q') board = <Quiz key={attempt} unit={unit} {...common} />;
   else if (unit.type === 'o') board = <Order key={attempt} unit={unit} {...common} />;
   else if (gameId === 'explore') board = <Explore key={attempt} unit={unit} {...common} />;
   else if (gameId === 'memory') board = <Memory key={attempt} unit={unit} {...common} />;

@@ -26,6 +26,10 @@ La CI GitHub Actions (`ci.yml`) refait ces vérifications puis compile l'APK And
 - Émojis : toujours une `lineHeight` explicite, sinon Android les rogne (`components/ui.tsx`).
 - Voix : `lib/speech.ts` (expo-speech, voix du téléphone). Sons : `lib/sounds.ts` (expo-audio), fichiers générés par
   `node scripts/make-sounds.js`. Icônes : `node scripts/make-icons.js <chemin vers playwright>`.
+- Jeu « Parle » (`components/games/Speak.tsx`) : `expo-speech-recognition` (micro + service de reconnaissance du
+  téléphone, Internet le plus souvent). L'évaluation est dans `lib/speaking.ts` (normalisation, homophones, nombres,
+  seuils `GOOD_SCORE` / `ALMOST_SCORE`). C'est une comparaison de texte reconnu, pas une analyse phonétique.
+  Publication Google Play : déclarer le micro dans la sécurité des données.
 - Compilation sur le VPS : `./scripts/build-vps.sh setup` (une fois), puis `apk` / `aab` / `all`. Sorties dans
   `~/builds/hello-english/`, clé de signature dans `~/.hello-english/` (hors dépôt, à sauvegarder).
 - Avant chaque build envoyé à Google Play : augmenter `android.versionCode` dans `app.json`.

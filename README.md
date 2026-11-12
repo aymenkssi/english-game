@@ -3,7 +3,7 @@
 Application Android pour apprendre l'anglais **de la maternelle à la 3e**, alignée sur les programmes officiels de l'Éducation nationale.
 
 Même base technique que les autres applications (Waselni, AgriPedia, Halal & Mosque Finder) :
-**Expo / React Native** (SDK 57, TypeScript, expo-router). L'application fonctionne entièrement hors ligne, sans compte ni serveur.
+**Expo / React Native** (SDK 57, TypeScript, expo-router). Sans compte ni serveur ; tout fonctionne hors ligne, sauf le jeu « Parle » (reconnaissance vocale du téléphone).
 
 ## Contenu
 
@@ -19,8 +19,13 @@ Même base technique que les autres applications (Waselni, AgriPedia, Halal & Mo
 | 4e | Niveau A2+, 6 axes | Sport et société ; voyages et explorations ; villes ; inventer, créer ; present perfect ; l'Irlande |
 | 3e | Niveau B1, 6 axes | L'autre et les migrations ; le travail ; médias ; engagement ; passif, conditionnel ; les États-Unis |
 
-Mini-jeux : **Découvrir**, **Écoute**, **Le bon mot** (dès le CP), **Memory**, **Épelle** (dès le CE1), **Quiz** et **Phrases**.
+Mini-jeux : **Découvrir**, **Écoute**, **Parle**, **Le bon mot** (dès le CP), **Memory**, **Épelle** (dès le CE1), **Quiz** et **Phrases**.
 Les mots sont lus par la synthèse vocale du téléphone (voix anglaise) ; les étoiles gagnées sont enregistrées sur l'appareil.
+
+**Parle** est proposé dans chaque unité : l'élève écoute le mot ou la phrase, le répète au micro, et l'application compare
+ce qu'elle a entendu avec le modèle (trois essais, puis on passe à la suite). Ce jeu utilise la reconnaissance vocale du
+téléphone (service Google sur Android) : il demande l'autorisation du micro et, le plus souvent, une connexion Internet.
+Les autres jeux fonctionnent hors ligne.
 
 ## Développement
 
@@ -68,7 +73,7 @@ La CI GitHub Actions (`.github/workflows/ci.yml`) refait les vérifications puis
 ## Organisation
 
 - `constants/curriculum/` : tout le contenu pédagogique, un fichier par étape (`maternelle.ts`, `elementaire.ts`, `college.ts`)
-- `lib/` : logique sans interface (jeux, scores, progression, voix, sons), testée dans `__tests__/`
+- `lib/` : logique sans interface (jeux, scores, évaluation de la prononciation, progression, voix, sons), testée dans `__tests__/`
 - `components/games/` : les mini-jeux ; `app/` : les écrans (expo-router)
 - `scripts/` : génération des icônes et des sons
 

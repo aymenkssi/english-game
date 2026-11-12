@@ -1,20 +1,40 @@
 import { LEVELS } from '../constants/curriculum';
 import type { Word } from '../constants/curriculum';
-import { gamesFor, memoryStars, pickOptions, pictureOf, scramble, spokenSentence, starsFor } from '../lib/games';
+import { gamesFor, memoryStars, pickOptions, pictureOf, scramble, speakPhrases, spokenSentence, starsFor } from '../lib/games';
 import { levelStars, parseProgress, progressKey, unitStars, withStars } from '../lib/progress';
 
 const level = (id: string) => LEVELS.find((l) => l.id === id)!;
 
 describe('gamesFor', () => {
   it('offers reading from CP and spelling from CE1', () => {
-    expect(gamesFor(level('cp'), level('cp').units[1])).toEqual(['explore', 'listen', 'read', 'memory']);
-    expect(gamesFor(level('ce1'), level('ce1').units[0])).toEqual(['explore', 'listen', 'read', 'memory', 'spell']);
+    expect(gamesFor(level('cp'), level('cp').units[1])).toEqual(['explore', 'listen', 'speak', 'read', 'memory']);
+    expect(gamesFor(level('ce1'), level('ce1').units[0])).toEqual(['explore', 'listen', 'speak', 'read', 'memory', 'spell']);
   });
 
-  it('gives quiz and sentence units a single game', () => {
+  it('adds the speaking game to sentence units and to quizzes with English sentences', () => {
     const ce1 = level('ce1');
-    expect(gamesFor(ce1, ce1.units.find((u) => u.type === 'q')!)).toEqual(['quiz']);
-    expect(gamesFor(ce1, ce1.units.find((u) => u.type === 'o')!)).toEqual(['order']);
+    expect(gamesFor(ce1, ce1.units.find((u) => u.id === 'questions')!)).toEqual(['quiz', 'speak']);
+    expect(gamesFor(ce1, ce1.units.find((u) => u.type === 'o')!)).toEqual(['order', 'speak']);
+  });
+});
+
+describe('speakPhrases', () => {
+  it('uses the words of a vocabulary unit and the sentences of an ordering unit', () => {
+    const cp = level('cp');
+    expect(speakPhrases(cp.units.find((u) => u.id === 'pets')!)[0]).toEqual({ text: 'cat', fr: 'chat', word: ['🐱', 'cat', 'chat'] });
+    expect(speakPhrases(cp.units.find((u) => u.id === 'sentences')!)[0]).toEqual({ text: 'My name is Tom.', fr: "Je m'appelle Tom." });
+  });
+
+  it('completes quiz sentences and leaves out numbers and dates', () => {
+    const texts = (id: string, unit: string) => speakPhrases(level(id).units.find((u) => u.id === unit)!).map((p) => p.text);
+    expect(texts('ce2', 'grammar')).toContain('She is my friend.');
+    expect(texts('4e', 'perfect')).toContain('I have never been to Ireland.');
+    expect(texts('cm1', 'culture')).not.toContain('17 March');
+    expect(texts('3e', 'usa')).not.toContain('50');
+  });
+
+  it('gives every unit of every level something to say', () => {
+    for (const l of LEVELS) for (const u of l.units) expect(gamesFor(l, u)).toContain('speak');
   });
 });
 
@@ -101,7 +121,7 @@ describe('progress', () => {
     const cp = level('cp');
     const pets = cp.units.find((u) => u.id === 'pets')!;
     const progress = { 'cp.pets.listen': 3, 'cp.pets.read': 2, 'cp.sentences.order': 1 };
-    expect(unitStars(progress, cp, pets)).toEqual({ got: 5, max: 9 });
+    expect(unitStars(progress, cp, pets)).toEqual({ got: 5, max: 12 });
     expect(levelStars(progress, cp).got).toBe(6);
   });
 });

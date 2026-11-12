@@ -1,10 +1,11 @@
 import type { Level, Unit, Word } from '../constants/curriculum/types';
 
-export type GameId = 'explore' | 'listen' | 'read' | 'memory' | 'spell' | 'quiz' | 'order';
+export type GameId = 'explore' | 'listen' | 'speak' | 'read' | 'memory' | 'spell' | 'quiz' | 'order';
 
 export const GAMES: Record<GameId, { name: string; desc: string; icon: string; scored: boolean }> = {
   explore: { name: 'Découvrir', desc: 'Touche les cartes pour écouter', icon: '👀', scored: false },
   listen: { name: 'Écoute', desc: 'Écoute et trouve la bonne carte', icon: '🎧', scored: true },
+  speak: { name: 'Parle', desc: 'Écoute, répète, et vois ton score', icon: '🎤', scored: true },
   read: { name: 'Le bon mot', desc: 'Trouve le mot anglais', icon: '🔤', scored: true },
   memory: { name: 'Memory', desc: 'Retrouve les paires', icon: '🃏', scored: true },
   spell: { name: 'Épelle', desc: "Remets les lettres dans l'ordre", icon: '🔡', scored: true },
@@ -14,13 +15,34 @@ export const GAMES: Record<GameId, { name: string; desc: string; icon: string; s
 
 /** Les jeux proposés pour une unité, selon son type et ce que l'élève sait déjà faire. */
 export function gamesFor(level: Level, unit: Unit): GameId[] {
-  if (unit.type === 'q') return ['quiz'];
-  if (unit.type === 'o') return ['order'];
-  const games: GameId[] = ['explore', 'listen'];
+  const canSpeak = speakPhrases(unit).length >= MIN_SPEAK_PHRASES;
+  if (unit.type === 'q') return canSpeak ? ['quiz', 'speak'] : ['quiz'];
+  if (unit.type === 'o') return ['order', 'speak'];
+  const games: GameId[] = ['explore', 'listen', 'speak'];
   if (level.read) games.push('read');
   games.push('memory');
   if (level.spell) games.push('spell');
   return games;
+}
+
+export type SpeakPhrase = { text: string; fr?: string; word?: Word };
+
+export const MIN_SPEAK_PHRASES = 4;
+
+/** Ce que l'élève répète dans le jeu « Parle » : les mots, les phrases, ou les phrases complétées d'un quiz. */
+export function speakPhrases(unit: Unit): SpeakPhrase[] {
+  if (unit.type === 'v') return unit.words.map((word) => ({ text: word[1], fr: word[2], word }));
+  if (unit.type === 'o') return unit.items.map(([text, fr]) => ({ text, fr }));
+  const phrases: SpeakPhrase[] = [];
+  const seen = new Set<string>();
+  for (const [question, answer] of unit.items) {
+    const text = spokenSentence(question, answer) ?? answer;
+    // Ni chiffres ni dates (la reconnaissance les écrit de dix façons), et pas de réponse trop longue à répéter.
+    if (!/^[A-Za-z][A-Za-z ,.'’!?-]*$/.test(text) || text.split(' ').length > 9 || seen.has(text)) continue;
+    seen.add(text);
+    phrases.push({ text });
+  }
+  return phrases;
 }
 
 export const scoredGames = (level: Level, unit: Unit): GameId[] => gamesFor(level, unit).filter((g) => GAMES[g].scored);

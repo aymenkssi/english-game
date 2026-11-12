@@ -19,11 +19,12 @@
         "backgroundColor": "#FF8A3D"
       },
       "blockedPermissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "permissions": [
+        "RECORD_AUDIO"
       ]
     },
     "web": {
@@ -50,7 +51,17 @@
         }
       ],
       "expo-font",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Le micro sert uniquement au jeu « Parle » : l'élève répète un mot et l'application l'écoute.",
+          "speechRecognitionPermission": "La reconnaissance vocale sert à vérifier la prononciation dans le jeu « Parle ».",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
+      ]
     ]
   }
 }

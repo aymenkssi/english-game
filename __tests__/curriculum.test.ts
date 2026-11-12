@@ -33,7 +33,7 @@ describe('curriculum', () => {
         expect(unit.type).toBe('v');
         if (unit.type !== 'v') continue;
         for (const word of unit.words) expect(pictureOf(word).kind).not.toBe('text');
-        expect(gamesFor(level, unit)).toEqual(['explore', 'listen', 'memory']);
+        expect(gamesFor(level, unit)).toEqual(['explore', 'listen', 'speak', 'memory']);
       }
     });
 
