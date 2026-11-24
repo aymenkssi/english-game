@@ -111,6 +111,11 @@ build() {
       ./gradlew bundleRelease --no-daemon "-PreactNativeArchitectures=$ABIS" "${SIGNING[@]}"
       cp app/build/outputs/bundle/release/app-release.aab "$OUT_DIR/$name.aab"
       say ".aab : $OUT_DIR/$name.aab"
+      # Code réduit par R8 : Google Play a besoin de ce fichier pour lire les rapports de plantage.
+      if [ -f app/build/outputs/mapping/release/mapping.txt ]; then
+        cp app/build/outputs/mapping/release/mapping.txt "$OUT_DIR/$name-mapping.txt"
+        say "Fichier de désobscurcissement : $OUT_DIR/$name-mapping.txt (à envoyer avec le .aab)"
+      fi
     fi
   done
 }

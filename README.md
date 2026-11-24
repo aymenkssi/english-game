@@ -67,6 +67,8 @@ git pull
 - La clé de signature est créée au premier build dans `~/.hello-english/` (jamais dans le dépôt).
   **Sauvegardez ce dossier** : la même clé doit signer toutes les mises à jour.
 - Gradle a besoin d'environ 4 Go de mémoire (RAM + swap) ; `setup` prévient s'il en manque.
+- Le `.aab` est accompagné de son fichier de désobscurcissement (`-mapping.txt`, code réduit par R8) : l'envoyer
+  aussi à Google Play.
 - Avant chaque `.aab` envoyé à Google Play : augmenter `android.versionCode` dans `app.json`.
 
 ### Avec EAS

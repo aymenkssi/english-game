@@ -41,6 +41,10 @@ La CI GitHub Actions (`ci.yml`) refait ces vérifications puis compile l'APK And
   et `docs/confidentialite.html`, publiée par GitHub Pages).
 - `app.json` : la lecture audio en arrière-plan d'expo-audio est désactivée (pas de service de premier plan à déclarer
   à Google) ; ne pas la réactiver.
+- R8 est activé (`expo-build-properties` dans `app.json` : `enableMinifyInReleaseBuilds`, `enableShrinkResourcesInReleaseBuilds`).
+  Chaque `.aab` a son `mapping.txt` (copié par `build-vps.sh`) à envoyer à Google Play. Après l'ajout d'un module natif,
+  essayer l'APK de release sur un téléphone : R8 peut retirer du code utilisé par réflexion
+  (règles à ajouter dans `extraProguardRules`).
 - Compilation sur le VPS : `./scripts/build-vps.sh setup` (une fois), puis `apk` / `aab` / `all`. Sorties dans
   `~/builds/hello-english/`, clé de signature dans `~/.hello-english/` (hors dépôt, à sauvegarder).
 - Avant chaque build envoyé à Google Play : augmenter `android.versionCode` dans `app.json`.

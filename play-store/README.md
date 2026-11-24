@@ -1,4 +1,4 @@
-# Publication sur Google Play · version 1.0.0
+# Publication sur Google Play · version 1.0.1
 
 Dossier complet pour publier **Hello English!** (`com.aymen.helloenglish`) sur Google Play : textes, images, réponses
 aux déclarations de la Play Console et marche à suivre. Même modèle que Waselni et Umrah ; le fichier pour Google Play
@@ -21,7 +21,7 @@ Ordre des captures : accueil et « Continuer », page d'un niveau, Découvrir, P
 | Élément | Valeur |
 |---|---|
 | Nom du paquet | `com.aymen.helloenglish` |
-| Version / code de version | `1.0.0` / `1` (`app.json` › `expo.version`, `expo.android.versionCode`) |
+| Version / code de version | `1.0.1` / `2` (`app.json` › `expo.version`, `expo.android.versionCode`) |
 | Nom sur Google Play | `Hello English! – Anglais école` (fr) · `Hello English! – Kids English` (en) |
 | Application ou jeu | **Application** |
 | Catégorie | **Éducation** |
@@ -70,8 +70,13 @@ git pull
 ./scripts/build-vps.sh aab
 ```
 
-- Le fichier arrive dans `~/builds/hello-english/hello-english-1.0.0-1.aab`. Pour le récupérer :
-  `scp utilisateur@vps:builds/hello-english/*.aab .`
+- Les fichiers arrivent dans `~/builds/hello-english/` : `hello-english-<version>-<code>.aab` et
+  `hello-english-<version>-<code>-mapping.txt`. Pour les récupérer :
+  `scp 'utilisateur@vps:builds/hello-english/hello-english-1.0.1-2*' .`
+- Le code est réduit par **R8** (application plus légère). Le fichier `-mapping.txt` est le **fichier de
+  désobscurcissement** : sans lui, Google Play affiche un avertissement et les rapports de plantage sont illisibles.
+  Après l'import du `.aab` : **Explorateur d'app bundles** › choisir la version › onglet **Téléchargements** ›
+  **Fichier de désobscurcissement** › **Importer** le `-mapping.txt` de la même version.
 - La clé créée au premier build (`~/.hello-english/`) devient la **clé d'importation** : au premier envoi, laisser
   Google Play gérer la clé de signature finale (**Signature d'application Play**, proposé par défaut). Sauvegarder
   `~/.hello-english/` ailleurs que sur le VPS : sans elle, il faut demander une réinitialisation à Google.
@@ -164,7 +169,8 @@ désactivée dans `app.json`), donc pas de déclaration « Foreground service »
 
 ## 6. Tester avant la production
 
-1. **Tester et publier** › **Test interne** › **Créer une version** : importer le `.aab`, nom `1.0.0 (1)`,
+1. **Tester et publier** › **Test interne** › **Créer une version** : importer le `.aab`, nom `1.0.1 (2)`, puis son
+   fichier de désobscurcissement (étape 2),
    notes de version (bloc ci-dessous), ajouter votre Gmail dans les testeurs et installer l'application depuis le lien
    de test. Essayer chaque jeu, dont « Parle » (autoriser le micro).
 2. **Comptes personnels récents** : l'accès à la production demande d'abord un **test fermé** avec **au moins
