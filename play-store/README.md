@@ -134,8 +134,10 @@ en place :
 - Le micro n'est demandé qu'au premier usage du jeu « Parle », avec une explication ; les autres jeux marchent sans.
 
 Questions de la Console : « L'application pourrait-elle attirer les enfants involontairement ? » ne s'applique pas
-(elle les vise). Accepter les conditions du programme Familles. L'application peut être proposée au programme
-**« Approuvé par des enseignants »** (Teacher Approved) : Google l'évalue automatiquement, rien à envoyer.
+(elle les vise). Accepter les conditions du programme Familles. À la question sur le programme
+**« Approuvé par des enseignants »** (Teacher Approved), choisir **Include my app in the Teacher Approved program** :
+des enseignants et spécialistes évaluent l'application après sa publication (rien à envoyer). Si elle est retenue,
+elle reçoit le badge et peut apparaître dans l'onglet Enfants de Google Play ; sinon, rien ne change pour la fiche.
 
 ### Sécurité des données
 
