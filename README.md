@@ -27,6 +27,14 @@ ce qu'elle a entendu avec le modèle (trois essais, puis on passe à la suite). 
 téléphone (service Google sur Android) : il demande l'autorisation du micro et, le plus souvent, une connexion Internet.
 Les autres jeux fonctionnent hors ligne.
 
+**Suivi d'avancement** : sur l'accueil, la carte « Continuer » reprend le dernier niveau joué et ouvre directement
+l'activité suivante (première unité pas terminée, jeu jamais joué en priorité). La page **Ma progression** donne le
+pourcentage de chaque niveau, les compétences travaillées (comprendre, parler, écrire, mémoriser, grammaire et culture)
+et l'avancement de chaque unité. Tout reste sur l'appareil.
+
+**Soutenir l'application** : page de don PayPal (même lien que l'application Umrah, `constants/links.ts`), protégée
+par une question pour les parents (une multiplication) avant d'ouvrir PayPal.
+
 ## Développement
 
 ```bash
@@ -73,7 +81,7 @@ La CI GitHub Actions (`.github/workflows/ci.yml`) refait les vérifications puis
 ## Organisation
 
 - `constants/curriculum/` : tout le contenu pédagogique, un fichier par étape (`maternelle.ts`, `elementaire.ts`, `college.ts`)
-- `lib/` : logique sans interface (jeux, scores, évaluation de la prononciation, progression, voix, sons), testée dans `__tests__/`
+- `lib/` : logique sans interface (jeux, scores, évaluation de la prononciation, progression et activité suivante, question parent, voix, sons), testée dans `__tests__/`
 - `components/games/` : les mini-jeux ; `app/` : les écrans (expo-router)
 - `scripts/` : génération des icônes et des sons
 

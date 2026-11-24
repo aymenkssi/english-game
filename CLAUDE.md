@@ -30,6 +30,10 @@ La CI GitHub Actions (`ci.yml`) refait ces vérifications puis compile l'APK And
   téléphone, Internet le plus souvent). L'évaluation est dans `lib/speaking.ts` (normalisation, homophones, nombres,
   seuils `GOOD_SCORE` / `ALMOST_SCORE`). C'est une comparaison de texte reconnu, pas une analyse phonétique.
   Publication Google Play : déclarer le micro dans la sécurité des données.
+- Suivi d'avancement : `lib/progress.ts` (`nextStep`, `skillStars`, dernière activité dans AsyncStorage `hello-english-last`),
+  carte `components/ContinueCard.tsx`, page `app/progression.tsx`.
+- Don : `app/soutenir.tsx`, lien PayPal du développeur dans `constants/links.ts` (le même que dans Umrah). Public d'enfants :
+  garder la question pour les parents (`lib/parentGate.ts`) devant tout lien de paiement ou lien externe commercial.
 - Compilation sur le VPS : `./scripts/build-vps.sh setup` (une fois), puis `apk` / `aab` / `all`. Sorties dans
   `~/builds/hello-english/`, clé de signature dans `~/.hello-english/` (hors dépôt, à sauvegarder).
 - Avant chaque build envoyé à Google Play : augmenter `android.versionCode` dans `app.json`.

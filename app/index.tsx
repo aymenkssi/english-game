@@ -1,27 +1,17 @@
 import { router } from 'expo-router';
 import React from 'react';
-import { Alert, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ContinueCard } from '../components/ContinueCard';
 import { ProgressBar, Screen, Tile } from '../components/ui';
-import { CYCLES, LEVELS } from '../constants/curriculum';
+import { CYCLES, findLevel, LEVELS } from '../constants/curriculum';
 import { colors, cycleColors, fonts } from '../constants/theme';
 import { useProgress } from '../contexts/ProgressContext';
 import { levelStars } from '../lib/progress';
 
 export default function Home() {
-  const { progress, reset } = useProgress();
+  const { progress, last } = useProgress();
+  const lastLevel = findLevel(last?.level);
   const total = LEVELS.reduce((s, l) => s + levelStars(progress, l).got, 0);
-
-  const askReset = () => {
-    const question = 'Effacer toutes les étoiles gagnées sur cet appareil ?';
-    if (Platform.OS === 'web') {
-      if (window.confirm(question)) reset();
-      return;
-    }
-    Alert.alert('Remettre à zéro', question, [
-      { text: 'Annuler', style: 'cancel' },
-      { text: 'Effacer', style: 'destructive', onPress: reset },
-    ]);
-  };
 
   return (
     <Screen>
@@ -29,11 +19,17 @@ export default function Home() {
         <Text style={styles.balloon}>🎈</Text>
         <Text style={styles.title} accessibilityRole="header">Hello English!</Text>
         <Text style={styles.tagline}>L&apos;anglais en jouant, de la maternelle à la 3e</Text>
-        <View style={styles.total}>
+        <Pressable onPress={() => router.push('/progression')} accessibilityRole="button" accessibilityLabel="Voir ma progression" style={styles.total}>
           <Text style={styles.totalStar}>★</Text>
-          <Text style={styles.totalText}>{total} étoile{total > 1 ? 's' : ''} gagnée{total > 1 ? 's' : ''}</Text>
-        </View>
+          <Text style={styles.totalText}>{total} étoile{total > 1 ? 's' : ''} gagnée{total > 1 ? 's' : ''} ›</Text>
+        </Pressable>
       </View>
+
+      {lastLevel ? (
+        <View style={styles.continue}>
+          <ContinueCard level={lastLevel} />
+        </View>
+      ) : null}
 
       {CYCLES.map((cycle, i) => {
         const accent = cycleColors[i];
@@ -61,11 +57,14 @@ export default function Home() {
       })}
 
       <View style={styles.footer}>
+        <Pressable onPress={() => router.push('/progression')} accessibilityRole="link" hitSlop={8}>
+          <Text style={styles.link}>📈 Ma progression</Text>
+        </Pressable>
         <Pressable onPress={() => router.push('/programme')} accessibilityRole="link" hitSlop={8}>
           <Text style={styles.link}>📘 Le programme officiel, niveau par niveau</Text>
         </Pressable>
-        <Pressable onPress={askReset} accessibilityRole="button" hitSlop={8}>
-          <Text style={styles.link}>Remettre les étoiles à zéro</Text>
+        <Pressable onPress={() => router.push('/soutenir')} accessibilityRole="link" hitSlop={8}>
+          <Text style={styles.link}>❤️ Soutenir l&apos;application</Text>
         </Pressable>
       </View>
     </Screen>
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
   total: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, paddingVertical: 6, paddingHorizontal: 16, backgroundColor: colors.surface, borderWidth: 2, borderColor: colors.border, borderRadius: 99 },
   totalStar: { fontSize: 18, color: colors.star },
   totalText: { fontFamily: fonts.bodyBold, fontSize: 16, color: colors.text },
+  continue: { marginTop: 20 },
   cycle: { marginTop: 26 },
   cycleName: { fontFamily: fonts.head, fontSize: 23 },
   cycleSub: { fontFamily: fonts.body, fontSize: 15, color: colors.muted, marginTop: 2, marginBottom: 12 },

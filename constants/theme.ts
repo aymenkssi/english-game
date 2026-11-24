@@ -15,6 +15,9 @@ export const colors = {
   notice: '#FFF1C2',
   link: '#1B66BD',
   white: '#FFFFFF',
+  heart: '#E5484D',
+  paypal: '#0070BA',
+  paypalDark: '#00548C',
 };
 
 export type Accent = { accent: string; dark: string; soft: string };

@@ -28,13 +28,16 @@ export default function PlayScreen() {
 }
 
 function Play({ level, unit, gameId }: { level: Level; unit: Unit; gameId: GameId }) {
-  const { save } = useProgress();
+  const { save, markPlayed } = useProgress();
   const [value, setValue] = useState(0);
   const [result, setResult] = useState<{ stars: number; line: string } | null>(null);
   const [attempt, setAttempt] = useState(0);
 
   // On coupe la voix en quittant l'écran.
   useEffect(() => hush, []);
+
+  // Pour « Continuer » sur l'accueil et la page de progression.
+  useEffect(() => markPlayed(level.id, unit.id, gameId), [level.id, unit.id, gameId, markPlayed]);
 
   const finish = useCallback((stars: number, line: string) => {
     save(level.id, unit.id, gameId, stars);
