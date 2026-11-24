@@ -51,9 +51,9 @@ dans l'application (accueil › **🔒 Confidentialité**) et dans `docs/confide
 
 **Avec GitHub Pages** (gratuit, dépôt public) :
 
-1. Fusionner la branche de travail dans `main`.
-2. GitHub › dépôt `english-game` › **Settings** › **Pages** › *Source* : **Deploy from a branch** › branche `main`,
-   dossier **`/docs`** › **Save**.
+1. GitHub › dépôt `english-game` › **Settings** › **Pages** › *Source* : **Deploy from a branch** › la branche qui
+   contient le travail (aujourd'hui `claude/practical-hamilton-30vt8e`, plus tard `main`), dossier **`/docs`** › **Save**.
+2. Le dépôt doit rester **public** (GitHub Pages gratuit) ; seul le dossier `docs/` est publié comme site.
 3. Après une ou deux minutes, vérifier que https://aymenkssi.github.io/english-game/confidentialite.html s'ouvre.
 
 **Ou sur le VPS** : servir le dossier `docs/` sur un sous-domaine (par exemple `hello-english.creationapp.academy`),
