@@ -24,6 +24,10 @@ jobs:
       - run: yarn typecheck
       - run: yarn lint
       - run: yarn test --ci
+      - name: Google Play texts within limits
+        run: python3 play-store/scripts/check_texts.py
+      - name: Online privacy policy up to date
+        run: node play-store/scripts/build-privacy.js --check
       - name: Web export (all routes render)
         run: npx expo export --platform web
 

@@ -185,7 +185,7 @@ export function Speak({ level, unit, accent, onProgress, onFinish }: GameProps) 
       >
         <Text style={styles.micIcon}>{listening ? '👂' : '🎤'}</Text>
       </Pressable>
-      <Text style={styles.micLabel}>{listening ? "Je t'écoute…" : tries === 0 ? 'Touche le micro et parle' : `Essai ${Math.min(tries + 1, MAX_TRIES)} sur ${MAX_TRIES}`}</Text>
+      <Text style={styles.micLabel}>{listening ? "Je t'écoute…" : phase === 'good' ? 'Bien joué !' : failed ? '' : tries === 0 ? 'Touche le micro et parle' : `Essai ${tries + 1} sur ${MAX_TRIES}`}</Text>
 
       {feedback ? (
         <View style={[styles.feedback, { backgroundColor: phase === 'good' ? colors.goodSoft : phase === 'almost' ? colors.notice : colors.badSoft }]}>

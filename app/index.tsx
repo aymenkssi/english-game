@@ -66,6 +66,9 @@ export default function Home() {
         <Pressable onPress={() => router.push('/soutenir')} accessibilityRole="link" hitSlop={8}>
           <Text style={styles.link}>❤️ Soutenir l&apos;application</Text>
         </Pressable>
+        <Pressable onPress={() => router.push('/confidentialite')} accessibilityRole="link" hitSlop={8}>
+          <Text style={styles.link}>🔒 Confidentialité</Text>
+        </Pressable>
       </View>
     </Screen>
   );

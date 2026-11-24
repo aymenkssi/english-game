@@ -1,0 +1,73 @@
+{
+  "updated": "24 novembre 2026",
+  "updatedEn": "24 November 2026",
+  "contact": "aymenkssi@gmail.com",
+  "fr": {
+    "title": "Politique de confidentialité",
+    "intro": "Hello English! est une application d'apprentissage de l'anglais pour les élèves de la maternelle à la 3e. Elle est conçue pour être utilisée par des enfants : elle ne demande aucun compte, ne contient aucune publicité et ne collecte aucune donnée personnelle.",
+    "sections": [
+      {
+        "title": "Aucune donnée collectée par l'application",
+        "body": "L'application ne demande ni nom, ni âge, ni adresse e-mail. Elle n'utilise aucun outil de statistiques, aucun traceur et aucun identifiant publicitaire. Le développeur ne reçoit aucune information sur les utilisateurs."
+      },
+      {
+        "title": "Progression enregistrée sur l'appareil",
+        "body": "Les étoiles gagnées et la dernière activité jouée sont enregistrées uniquement dans la mémoire du téléphone ou de la tablette, pour afficher la progression. Elles ne quittent jamais l'appareil. Pour les effacer : « Ma progression » › « Remettre les étoiles à zéro », ou désinstaller l'application."
+      },
+      {
+        "title": "Micro et reconnaissance vocale (jeu « Parle »)",
+        "body": "Le micro sert uniquement dans le jeu « Parle », quand l'élève touche le bouton du micro, et seulement après l'autorisation donnée sur le téléphone. Le son est transmis au service de reconnaissance vocale du téléphone (sur Android, le service de Google), qui renvoie le texte reconnu. L'application compare ce texte au mot attendu pour donner un résultat, puis l'oublie : elle n'enregistre pas la voix et ne conserve pas le texte. Ce traitement par Google est soumis à sa propre politique de confidentialité (policies.google.com/privacy). L'autorisation du micro peut être retirée à tout moment dans les réglages du téléphone ; les autres jeux restent utilisables."
+      },
+      {
+        "title": "Voix anglaise",
+        "body": "Les mots sont lus par la synthèse vocale installée sur le téléphone. Aucun texte n'est envoyé au développeur."
+      },
+      {
+        "title": "Liens externes et dons",
+        "body": "La page « Soutenir l'application » propose un lien vers PayPal pour faire un don. Ce lien est protégé par une question destinée aux parents. Le don se fait sur le site de PayPal, soumis à sa propre politique de confidentialité ; l'application ne reçoit aucune information de paiement. La page « Programme officiel » contient des liens vers les sites de l'Éducation nationale."
+      },
+      {
+        "title": "Enfants",
+        "body": "Comme aucune donnée personnelle n'est collectée, l'application peut être utilisée par des enfants sans création de compte. Les parents et enseignants peuvent poser toute question à l'adresse ci-dessous."
+      },
+      {
+        "title": "Modifications et contact",
+        "body": "Toute modification de cette politique sera publiée sur cette page et dans l'application. Pour toute question : {contact}."
+      }
+    ]
+  },
+  "en": {
+    "title": "Privacy policy",
+    "intro": "Hello English! is an English learning app for pupils from preschool to the end of middle school (French school system). It is designed to be used by children: it needs no account, shows no advertising and collects no personal data.",
+    "sections": [
+      {
+        "title": "No data collected by the app",
+        "body": "The app does not ask for a name, age or email address. It uses no analytics, no trackers and no advertising identifier. The developer receives no information about users."
+      },
+      {
+        "title": "Progress stored on the device",
+        "body": "Stars earned and the last activity played are stored only on the phone or tablet, to show progress. They never leave the device. To erase them: « Ma progression » › « Remettre les étoiles à zéro », or uninstall the app."
+      },
+      {
+        "title": "Microphone and speech recognition (« Parle » game)",
+        "body": "The microphone is used only in the « Parle » (Speak) game, when the pupil taps the microphone button, and only after permission has been granted on the phone. The sound is sent to the phone's speech recognition service (on Android, Google's service), which returns the recognised text. The app compares this text with the expected word to give a result, then discards it: it does not record the voice and does not keep the text. Google's processing is covered by its own privacy policy (policies.google.com/privacy). Microphone permission can be withdrawn at any time in the phone settings; the other games remain available."
+      },
+      {
+        "title": "English voice",
+        "body": "Words are read by the text-to-speech engine installed on the phone. No text is sent to the developer."
+      },
+      {
+        "title": "External links and donations",
+        "body": "The « Soutenir l'application » (Support the app) page offers a PayPal link to make a donation. This link is protected by a question for parents. Donations are made on PayPal's website, under its own privacy policy; the app receives no payment information. The « Programme officiel » page links to French Ministry of Education websites."
+      },
+      {
+        "title": "Children",
+        "body": "As no personal data is collected, children can use the app without creating an account. Parents and teachers can send any question to the address below."
+      },
+      {
+        "title": "Changes and contact",
+        "body": "Any change to this policy will be published on this page and in the app. For any question: {contact}."
+      }
+    ]
+  }
+}

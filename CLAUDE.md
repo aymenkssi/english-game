@@ -6,6 +6,8 @@
 
 ```bash
 yarn typecheck && yarn lint && yarn test
+python3 play-store/scripts/check_texts.py     # si play-store/textes/ a changé
+node play-store/scripts/build-privacy.js      # si constants/privacy.json a changé (régénère docs/)
 npx expo export --platform web                # tous les écrans se construisent
 ```
 
@@ -34,6 +36,11 @@ La CI GitHub Actions (`ci.yml`) refait ces vérifications puis compile l'APK And
   carte `components/ContinueCard.tsx`, page `app/progression.tsx`.
 - Don : `app/soutenir.tsx`, lien PayPal du développeur dans `constants/links.ts` (le même que dans Umrah). Public d'enfants :
   garder la question pour les parents (`lib/parentGate.ts`) devant tout lien de paiement ou lien externe commercial.
+- Publication Google Play (textes, images, déclarations, sécurité des données, règles « Familles ») : voir
+  `play-store/README.md`. Politique de confidentialité : `constants/privacy.json` (page `app/confidentialite.tsx`
+  et `docs/confidentialite.html`, publiée par GitHub Pages).
+- `app.json` : la lecture audio en arrière-plan d'expo-audio est désactivée (pas de service de premier plan à déclarer
+  à Google) ; ne pas la réactiver.
 - Compilation sur le VPS : `./scripts/build-vps.sh setup` (une fois), puis `apk` / `aab` / `all`. Sorties dans
   `~/builds/hello-english/`, clé de signature dans `~/.hello-english/` (hors dépôt, à sauvegarder).
 - Avant chaque build envoyé à Google Play : augmenter `android.versionCode` dans `app.json`.

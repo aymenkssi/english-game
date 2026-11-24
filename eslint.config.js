@@ -5,11 +5,11 @@ const expoConfig = require('eslint-config-expo/flat');
 module.exports = defineConfig([
   expoConfig,
   {
-    ignores: ['dist/*'],
+    ignores: ['dist/*', 'play-store/build/*'],
   },
   {
     // Node.js scripts (icons, sounds).
-    files: ['scripts/**/*.js'],
+    files: ['scripts/**/*.js', 'play-store/scripts/**/*.js'],
     languageOptions: { globals: { __dirname: 'readonly', require: 'readonly', module: 'writable', process: 'readonly', console: 'readonly', Buffer: 'readonly' } },
   },
 ]);

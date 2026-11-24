@@ -78,6 +78,11 @@ npx eas-cli build --platform android --profile production   # .aab
 
 La CI GitHub Actions (`.github/workflows/ci.yml`) refait les vérifications puis compile un APK de test et le publie comme artefact.
 
+## Publication sur Google Play
+
+Tout le dossier (textes, images, déclarations, politique de confidentialité, marche à suivre) est dans
+[`play-store/README.md`](play-store/README.md).
+
 ## Organisation
 
 - `constants/curriculum/` : tout le contenu pédagogique, un fichier par étape (`maternelle.ts`, `elementaire.ts`, `college.ts`)
